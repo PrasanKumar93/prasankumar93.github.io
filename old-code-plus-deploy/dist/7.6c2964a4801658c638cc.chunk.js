@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[7],{133:function(e,n){throw new Error("Module parse failed: Unexpected token (1:6)\nYou may need an appropriate loader to handle this file type.\n> \ufeffbody {\r\n|     margin: 0;\r\n|     --font-size1: 15px;\r")}}]);
-//# sourceMappingURL=7.6c2964a4801658c638cc.bundle.map

@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{107:function(n,t,o){"use strict";o.r(t),o.d(t,"SharedFunctionsCls",function(){return s});var s=function(){function n(){!function(n,t){if(!(n instanceof t))throw new TypeError("Cannot call a class as a function")}(this,n)}return n.setPageCssVariables=function(n,t){if(n&&n.length&&t)for(var o in t)n[0].style.setProperty(o,t[o])},n}()}}]);
-//# sourceMappingURL=4.c37f62b4a9f41b4618ac.bundle.map

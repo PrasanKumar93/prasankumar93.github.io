@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[12],{134:function(e,n){throw new Error("Module parse failed: Unexpected token (1:1)\nYou may need an appropriate loader to handle this file type.\n> \ufeff.sha-pg008-01 {\r\n|     display: flex;\r\n|     flex-direction: column;\r")}}]);
-//# sourceMappingURL=12.fd2fb5ac6d8fdb01ef15.bundle.map

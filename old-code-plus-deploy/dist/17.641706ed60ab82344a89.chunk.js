@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[17],{139:function(s,e,t){s.exports='<template>\r\n    <require from="./swiss_template.css"></require>\r\n</template>'},"templates/swiss_templates/swiss_template.css":function(s,e,t){(s.exports=t(33)(!1)).push([s.i,"",""])}}]);
-//# sourceMappingURL=17.641706ed60ab82344a89.bundle.map
