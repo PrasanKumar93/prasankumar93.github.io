@@ -40,20 +40,22 @@ jobs:
 
       - name: Render CV (PDF + HTML)
         run: |
-          mkdir -p dist
           rendercv render data/cv.yaml \
             --pdf-path dist/Prasan_Kumar_Resume.pdf \
             --html-path dist/index.html \
-            --dont-generate-markdown \
             --dont-generate-typst \
             --dont-generate-png
+          # Note: RenderCV resolves relative --pdf-path/--html-path against the
+          # input YAML's directory (data/), not the shell's cwd, so real output
+          # lands in data/dist/, not ./dist/.
+          ls -la data/dist
 
       - name: Add resume download link to page
         run: |
           python3 - <<'PY'
           from pathlib import Path
 
-          html_path = Path("dist/index.html")
+          html_path = Path("data/dist/index.html")
           html = html_path.read_text(encoding="utf-8")
           banner = (
               '<div style="text-align:center;padding:12px 0;font-family:sans-serif;">'
@@ -74,7 +76,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: data/dist
 
   deploy:
     needs: build

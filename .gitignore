@@ -1,0 +1,9 @@
+# RenderCV-generated output (rendered fresh by the build workflow — never committed)
+dist/
+data/dist/
+data/rendercv_output/
+rendercv_output/
+
+# Local Python/OS junk
+__pycache__/
+.DS_Store
