@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ cv.name }} - Resume</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #1a1a1a;
+    font-size: 10pt;
+    line-height: 1.5;
+  }
+  .page {
+    display: flex;
+    min-height: 100vh;
+  }
+  .sidebar {
+    width: 32%;
+    background: #1c1c1c;
+    color: #e8e8e8;
+    padding: 34px 24px;
+  }
+  .main {
+    width: 68%;
+    padding: 34px 30px;
+  }
+  .sidebar h1 {
+    font-size: 19pt;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #fff;
+  }
+  .sidebar .headline {
+    font-size: 9.5pt;
+    color: #b5b5b5;
+    margin-bottom: 20px;
+  }
+  .sidebar h2 {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #999;
+    border-bottom: 1px solid #444;
+    padding-bottom: 4px;
+    margin: 22px 0 10px 0;
+  }
+  .sidebar h2:first-of-type { margin-top: 0; }
+  .contact-item {
+    font-size: 9pt;
+    color: #ddd;
+    margin-bottom: 6px;
+    word-break: break-word;
+  }
+  .sidebar-entry { margin-bottom: 10px; }
+  .sidebar-entry .label { font-size: 9pt; font-weight: 600; color: #fff; }
+  .sidebar-entry .value { font-size: 9pt; color: #ccc; }
+  .sidebar-edu-inst { font-size: 9.5pt; font-weight: 600; color: #fff; }
+  .sidebar-edu-meta { font-size: 8.8pt; color: #bbb; margin-top: 2px; }
+  .sidebar-award { font-size: 8.8pt; color: #ccc; margin-bottom: 8px; }
+
+  .main h2 {
+    font-size: 11pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #1a1a1a;
+    border-bottom: 2px solid #1c1c1c;
+    padding-bottom: 4px;
+    margin: 0 0 12px 0;
+  }
+  .main h2.summary-heading { margin-top: 0; }
+  .main section { margin-bottom: 24px; }
+  .summary-text { color: #333; margin: 0; }
+
+  .timeline { position: relative; padding-left: 20px; border-left: 2px solid #ddd; }
+  .timeline-item { position: relative; margin-bottom: 18px; break-inside: avoid; }
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -26px;
+    top: 3px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #1c1c1c;
+  }
+  .timeline-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; }
+  .timeline-title { font-weight: 600; font-size: 10.5pt; color: #111; }
+  .timeline-company { color: #555; }
+  .timeline-dates { font-size: 8.8pt; color: #888; white-space: nowrap; }
+  .timeline-location { font-size: 8.8pt; color: #999; margin-bottom: 5px; }
+  .timeline-item ul { margin: 4px 0 0 0; padding-left: 16px; color: #333; }
+  .timeline-item li { margin-bottom: 3px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <aside class="sidebar">
+    <h1>{{ cv.name }}</h1>
+    {% if cv.headline %}<div class="headline">{{ cv.headline }}</div>{% endif %}
+
+    <h2>Contact</h2>
+    {% if cv.location %}<div class="contact-item">{{ cv.location }}</div>{% endif %}
+    {% if cv.email %}<div class="contact-item">{{ cv.email }}</div>{% endif %}
+    {% if cv.website %}<div class="contact-item">{{ cv.website }}</div>{% endif %}
+    {% for net in cv.social_networks %}<div class="contact-item">{{ net.network }}: {{ net.username }}</div>{% endfor %}
+
+    {% if cv.sections.skills %}
+    <h2>Skills</h2>
+    {% for s in cv.sections.skills %}
+    <div class="sidebar-entry">
+      <div class="label">{{ s.label }}</div>
+      <div class="value">{{ s.details }}</div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if cv.sections.education %}
+    <h2>Education</h2>
+    {% for ed in cv.sections.education %}
+    <div class="sidebar-entry">
+      <div class="sidebar-edu-inst">{{ ed.institution }}</div>
+      <div class="sidebar-edu-meta">{{ ed.degree }}, {{ ed.area }}</div>
+      <div class="sidebar-edu-meta">{{ ed.location }} &middot; {{ (ed.start_date, ed.end_date) | date_range }}</div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if cv.sections.awards %}
+    <h2>Awards</h2>
+    {% for a in cv.sections.awards %}
+    <div class="sidebar-award">{{ a.bullet | md_bold | safe }}</div>
+    {% endfor %}
+    {% endif %}
+  </aside>
+
+  <main class="main">
+    {% if cv.sections.summary %}
+    <section>
+      <h2 class="summary-heading">Summary</h2>
+      {% for para in cv.sections.summary %}
+      <p class="summary-text">{{ para | md_bold | safe }}</p>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if cv.sections.experience %}
+    <section>
+      <h2>Experience</h2>
+      <div class="timeline">
+        {% for job in cv.sections.experience %}
+        <div class="timeline-item">
+          <div class="timeline-top">
+            <div class="timeline-title">{{ job.position }} <span class="timeline-company">— {{ job.company }}</span></div>
+            <div class="timeline-dates">{{ (job.start_date, job.end_date) | date_range }}</div>
+          </div>
+          <div class="timeline-location">{{ job.location }}</div>
+          <ul>
+            {% for h in job.highlights %}
+            <li>{{ h | md_bold | safe }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+  </main>
+</div>
+</body>
+</html>

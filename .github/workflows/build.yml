@@ -2,15 +2,18 @@ name: Build and deploy resume site
 
 # Source of truth for content: data/cv.yaml (distilled from the private
 # personal-agent-memory repo's professional/career/*.md files).
-# This workflow renders it with RenderCV into a PDF + HTML page and deploys
-# the HTML as this GitHub Pages user site, with the PDF available alongside
-# it for download.
+# This workflow renders it through the Jinja2 templates in templates/ into
+# multiple resume designs (dist/<template>/index.html), prints each to a PDF
+# with headless Chromium (Playwright), and deploys the whole dist/ folder
+# (a template-picker page + each design's HTML/PDF) as this GitHub Pages site.
 
 on:
   push:
     branches: [master]
     paths:
       - "data/**"
+      - "templates/**"
+      - "scripts/**"
       - ".github/workflows/build.yml"
   workflow_dispatch: {}
 
@@ -35,48 +38,25 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install RenderCV
-        run: pip install "rendercv[full]"
+      - name: Install Python dependencies
+        run: pip install jinja2 pyyaml playwright
 
-      - name: Render CV (PDF + HTML)
-        run: |
-          rendercv render data/cv.yaml \
-            --pdf-path dist/Prasan_Kumar_Resume.pdf \
-            --html-path dist/index.html \
-            --dont-generate-typst \
-            --dont-generate-png
-          # Note: RenderCV resolves relative --pdf-path/--html-path against the
-          # input YAML's directory (data/), not the shell's cwd, so real output
-          # lands in data/dist/, not ./dist/.
-          ls -la data/dist
+      - name: Install headless Chromium
+        run: playwright install --with-deps chromium
 
-      - name: Add resume download link to page
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
+      - name: Render resume templates (cv.yaml -> dist/<template>/index.html)
+        run: python3 scripts/render_templates.py
 
-          html_path = Path("data/dist/index.html")
-          html = html_path.read_text(encoding="utf-8")
-          banner = (
-              '<div style="text-align:center;padding:12px 0;font-family:sans-serif;">'
-              '<a href="Prasan_Kumar_Resume.pdf" '
-              'style="display:inline-block;padding:8px 16px;border:1px solid #333;'
-              'border-radius:6px;text-decoration:none;color:#333;">'
-              "Download PDF"
-              "</a></div>"
-          )
-          if "<body" in html:
-              idx = html.index(">", html.index("<body")) + 1
-              html = html[:idx] + banner + html[idx:]
-          else:
-              html = banner + html
-          html_path.write_text(html, encoding="utf-8")
-          PY
+      - name: Export each template to PDF
+        run: python3 scripts/export_pdfs.py
+
+      - name: List dist output
+        run: find dist -type f
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: data/dist
+          path: dist
 
   deploy:
     needs: build

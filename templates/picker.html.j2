@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ cv.name }} - Resume</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #f4f4f4;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 48px 24px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  h1 { font-size: 24px; margin: 0 0 4px 0; }
+  .sub { color: #666; margin: 0 0 32px 0; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card h2 { font-size: 16px; margin: 0 0 8px 0; }
+  .card p { font-size: 13.5px; color: #666; margin: 0 0 18px 0; flex-grow: 1; }
+  .card .actions { display: flex; gap: 10px; }
+  .card a {
+    text-decoration: none;
+    font-size: 13.5px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-align: center;
+  }
+  .btn-view { border: 1px solid #1a1a1a; color: #1a1a1a; }
+  .btn-download { background: #1a1a1a; color: #fff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>{{ cv.name }}</h1>
+  <p class="sub">Choose a resume design to view or download as PDF.</p>
+  <div class="grid">
+    {% for tpl in templates %}
+    <div class="card">
+      <h2>{{ tpl.title }}</h2>
+      <p>{{ tpl.desc }}</p>
+      <div class="actions">
+        <a class="btn-view" href="{{ tpl.id }}/index.html">View</a>
+        <a class="btn-download" href="{{ tpl.id }}/resume.pdf">Download PDF</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</body>
+</html>

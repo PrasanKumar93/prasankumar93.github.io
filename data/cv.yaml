@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://github.com/rendercv/rendercv/blob/main/schema.json?raw=true
-#
 # Source of truth: personal-agent-memory/professional/career/*.md (private repo).
 # This file is the distilled, PUBLIC subset — no internal colleague names, no
 # internal-only quotes, no personal/private data (DOB, marital status, etc.).
@@ -155,9 +153,3 @@ cv:
     awards:
       - bullet: "**Cost Saving Strategy of the Year** — Antares Systems Ltd, for leading the Windows-to-Linux infrastructure migration"
       - bullet: "**Innovation Award** — Streamline Healthcare Solutions, for cross-browser compatibility architecture work"
-
-design:
-  theme: classic
-
-locale:
-  language: english
