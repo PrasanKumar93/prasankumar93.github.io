@@ -1,0 +1,88 @@
+name: Build and deploy resume site
+
+# Source of truth for content: data/cv.yaml (distilled from the private
+# personal-agent-memory repo's professional/career/*.md files).
+# This workflow renders it with RenderCV into a PDF + HTML page and deploys
+# the HTML as this GitHub Pages user site, with the PDF available alongside
+# it for download.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "data/**"
+      - ".github/workflows/build.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install RenderCV
+        run: pip install rendercv
+
+      - name: Render CV (PDF + HTML)
+        run: |
+          mkdir -p dist
+          rendercv render data/cv.yaml \
+            --pdf-path dist/Prasan_Kumar_Resume.pdf \
+            --html-path dist/index.html \
+            --dont-generate-markdown \
+            --dont-generate-typst \
+            --dont-generate-png
+
+      - name: Add resume download link to page
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          html_path = Path("dist/index.html")
+          html = html_path.read_text(encoding="utf-8")
+          banner = (
+              '<div style="text-align:center;padding:12px 0;font-family:sans-serif;">'
+              '<a href="Prasan_Kumar_Resume.pdf" '
+              'style="display:inline-block;padding:8px 16px;border:1px solid #333;'
+              'border-radius:6px;text-decoration:none;color:#333;">'
+              "Download PDF"
+              "</a></div>"
+          )
+          if "<body" in html:
+              idx = html.index(">", html.index("<body")) + 1
+              html = html[:idx] + banner + html[idx:]
+          else:
+              html = banner + html
+          html_path.write_text(html, encoding="utf-8")
+          PY
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
