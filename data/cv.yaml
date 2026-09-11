@@ -8,7 +8,6 @@ cv:
   headline: Technical Solutions Developer @ Redis | AI/GenAI & Full-Stack Engineering
   location: Bangalore, India
   email: prasankumar93@gmail.com
-  website: https://prasankumar93.github.io
   social_networks:
     - network: LinkedIn
       username: prasankumar93
@@ -19,117 +18,125 @@ cv:
 
   sections:
     summary:
-      - Technical Solutions Developer at Redis with 14+ years of full-stack
-        engineering experience across fintech, government e-tendering, and
-        healthcare domains. Currently focused on AI/GenAI, vector search, and
-        developer-facing platforms — building demos, tools, and reference
-        applications that unblock Marketing, Solutions, and Applied AI teams.
-        Background spans the MERN/MEAN stacks to Go, with hands-on ownership
-        of production infrastructure and flagship customer-facing technical
+      - Technical Solutions Developer at Redis focused on AI/GenAI, vector
+        search, and developer-facing platforms — building demos, tools, and
+        reference applications that unblock Marketing, Solutions, and Applied
+        AI teams. Brings 14+ years of full-stack engineering experience
+        across fintech, government e-tendering, and healthcare domains,
+        spanning the MERN/MEAN stacks to Go, with hands-on ownership of
+        production infrastructure and flagship customer-facing technical
         engagements.
 
     experience:
       - company: Redis
-        position: Technical Solutions Developer
-        start_date: 2022-07
-        end_date: present
         location: Bangalore, India
-        highlights:
-          - Own engineering of the redis.io search platform end-to-end —
-            picked up its Go-based backend, added semantic/vector search
-            across docs and marketing pages, built custom crawlers, and
-            designed incremental re-indexing to avoid costly full crawls.
-          - Designed and built **Redis Sandbox**, a zero-setup interactive
-            Redis environment for running, sharing, and launching queries
-            from tutorials — widely adopted internally and externally.
-          - Built **View Demos**, a single discovery/launch point for
-            flagship demos, with a cost-efficient hosting model (shared DB,
-            isolated keyspaces, live+mock LLM mode) that lets new demos ship
-            without proportional new infra spend.
-          - Sole technical owner of all 14 demos/tutorials for a major
-            Solutions Marketing campaign (caching, fraud detection, mobile
-            banking, real-time inventory, microservices, and more).
-          - Key technical SME for Redis Vector Search/GenAI — built the
-            developer journey from fundamentals to RAG, semantic
-            search, and streaming-LLM e-commerce chatbots.
-          - Built the flagship **Face Similarity** demo for AWS re:Invent
-            showcasing Redis Vector Sets; recognized by management as one of
-            the most successful and loved re:Invent demos.
-          - Stepped in for end-to-end technical ownership on strategic
-            on-site customer engagements (an internal hackathon for Osmos.ai
-            across 16 engineering teams; a Barclays engagement that drove
-            700+ booth visits) when field coverage was unavailable.
-          - Built cross-team tooling for Applied AI and Solution Architects,
-            including a multi-agent LangGraph Slackbot (PM Maestro/PRIA) and
-            a Redis-backed data-import utility for demo seeding.
+        positions:
+          - position: Technical Solutions Developer
+            start_date: 2022-07
+            end_date: present
+            highlights:
+              - Own engineering of the redis.io search platform end-to-end —
+                picked up its Go-based backend, added semantic/vector search
+                across docs and marketing pages, built custom crawlers, and
+                designed incremental re-indexing to avoid costly full crawls.
+              - Designed and built **Redis Sandbox** (redis.io/try/sandbox), a
+                zero-setup interactive Redis environment for running,
+                sharing, and launching queries from tutorials — widely
+                adopted internally and externally.
+              - Built **View Demos**, a single discovery/launch point for
+                flagship demos, with a cost-efficient hosting model (shared DB,
+                isolated keyspaces, live+mock LLM mode) that lets new demos ship
+                without proportional new infra spend.
+              - Sole technical owner of all 14 demos/tutorials for a major
+                Solutions Marketing campaign (caching, fraud detection, mobile
+                banking, real-time inventory, microservices, and more).
+              - Key technical SME for Redis Vector Search/GenAI — built the
+                developer journey from fundamentals to RAG, semantic
+                search, and streaming-LLM e-commerce chatbots.
+              - Built the flagship **Face Similarity** demo for AWS re:Invent
+                showcasing Redis Vector Sets; recognized by management as one of
+                the most successful and loved re:Invent demos.
+              - Stepped in for end-to-end technical ownership on strategic
+                on-site customer engagements (an internal hackathon for Osmos.ai
+                across 16 engineering teams; a Barclays engagement that drove
+                700+ booth visits) when field coverage was unavailable.
+              - Built cross-team tooling for Applied AI and Solution Architects,
+                including a multi-agent LangGraph Slackbot (PM Maestro/PRIA) and
+                a Redis-backed data-import utility for demo seeding.
 
       - company: Datamatics Global Services
-        position: Technical Architect
-        start_date: 2021-02
-        end_date: 2022-06
         location: Bangalore, India
-        highlights:
-          - Served as core Node.js architect for ABSLI (Aditya Birla Sunlife
-            Insurance) and ADB (Asian Development Bank) projects — led API
-            orchestration with AWS Step Functions, designed MongoDB schemas,
-            and set team-wide coding standards and test-coverage practices.
-          - Built **LEAP**, a unified ABSLI insurance-purchase journey
-            replacing fragmented, channel-specific flows across HDFC, other
-            bank partners, Paisabazaar, and direct-to-consumer channels.
-          - Owned engineering documentation (Docusaurus) and production
-            Linux infrastructure (EC2, Nginx, Node.js/PM2, MongoDB).
+        positions:
+          - position: Technical Architect
+            start_date: 2021-02
+            end_date: 2022-06
+            highlights:
+              - Served as core Node.js architect for ABSLI (Aditya Birla Sunlife
+                Insurance) and ADB (Asian Development Bank) projects — led API
+                orchestration with AWS Step Functions, designed MongoDB schemas,
+                and set team-wide coding standards and test-coverage practices.
+              - Built **LEAP**, a unified ABSLI insurance-purchase journey
+                replacing fragmented, channel-specific flows across HDFC, other
+                bank partners, Paisabazaar, and direct-to-consumer channels.
+              - Owned engineering documentation (Docusaurus) and production
+                Linux infrastructure (EC2, Nginx, Node.js/PM2, MongoDB).
 
       - company: Antares Systems Ltd
-        position: Technical Lead
-        start_date: 2019-04
-        end_date: 2021-01
         location: Bangalore, India
-        highlights:
-          - Led migration of legacy .NET/Java modules to the MEAN stack,
-            improving performance and maintainability of core product
-            modules.
-          - Directed a Windows-to-Linux infrastructure migration that cut
-            costs and improved reliability, winning the company's **Cost
-            Saving Strategy of the Year** award, presented by the CEO.
-          - Ran code reviews and technical training that raised team-wide
-            code quality and capability.
-
-      - company: Antares Systems Ltd
-        position: Senior Software Engineer
-        start_date: 2014-11
-        end_date: 2019-03
-        location: Bangalore, India
-        highlights:
-          - Built **Tender Wizard**, a flagship e-tendering/e-auction
-            platform for Indian government departments (Node.js REST APIs,
-            Aurelia/AngularJS UIs) — in production for 4+ years.
-          - Built an internal analytics tool giving the team its first
-            real-time visibility into the e-tendering pipeline, and
-            introduced Aurelia (ES6/7) as a new frontend framework for the
-            team.
-          - Built core modules for **Bid Factory**, a tender-aggregation and
-            bid-preparation product, including a PDF.js-based document
-            viewer, payment gateway integration, and offline client storage.
+        positions:
+          - position: Technical Lead
+            start_date: 2019-04
+            end_date: 2021-01
+            highlights:
+              - Led migration of legacy .NET/Java modules to the MEAN stack,
+                improving performance and maintainability of core product
+                modules.
+              - Directed a Windows-to-Linux infrastructure migration that cut
+                costs and improved reliability, winning the company's **Cost
+                Saving Strategy of the Year** award, presented by the CEO.
+              - Ran code reviews and technical training that raised team-wide
+                code quality and capability.
+          - position: Senior Software Engineer
+            start_date: 2014-11
+            end_date: 2019-03
+            highlights:
+              - Built the **bidpad** tender-document management module
+                (highlighting, notes) and reusable dashboard/summary-screen
+                components for **Tender Wizard**, an e-tendering/e-auction
+                platform already serving 200+ Indian government departments
+                — enabling per-department views from shared components
+                instead of per-department rebuilds.
+              - Built crawlers to collect free/public tender data,
+                introduced **Aurelia** (ES6/7) as the team's new frontend
+                framework, and helped centralize logging on the **Elastic
+                stack** — later relied on by IT for ISO compliance across
+                systems.
+              - Built core modules for **Bid Factory**, a tender-aggregation
+                and bid-preparation product, including a PDF.js-based
+                document viewer, payment gateway integration, and offline
+                client storage.
 
       - company: Streamline Healthcare Solutions
-        position: Software Engineer
-        start_date: 2013-06
-        end_date: 2014-10
         location: Bangalore, India
-        highlights:
-          - Led a cross-browser compatibility initiative on SmartCare Web, a
-            behavioral-healthcare product, and built its client-orders UI
-            module — won the company's **Innovation Award**.
+        positions:
+          - position: Software Engineer
+            start_date: 2013-06
+            end_date: 2014-10
+            highlights:
+              - Led a cross-browser compatibility initiative on SmartCare Web, a
+                behavioral-healthcare product, and built its client-orders UI
+                module — won the company's **Innovation Award**.
 
       - company: Asclepius Consulting
-        position: .Net Developer
-        start_date: 2011-08
-        end_date: 2013-05
         location: Bangalore, India
-        highlights:
-          - Built full-stack ASP.NET modules for CHARAK, a hospital
-            information system, covering Pharmacy Store and Diet & Kitchen
-            Management modules.
+        positions:
+          - position: .Net Developer
+            start_date: 2011-08
+            end_date: 2013-05
+            highlights:
+              - Built full-stack ASP.NET modules for CHARAK, a hospital
+                information system, covering Pharmacy Store and Diet & Kitchen
+                Management modules.
 
     education:
       - institution: T.P.I.S.T College of Engineering (JNTU Kakinada University)
@@ -140,13 +147,15 @@ cv:
 
     skills:
       - label: Languages
-        details: JavaScript/TypeScript, Go, C#/.NET
+        details: JavaScript/TypeScript, Go
       - label: AI / GenAI
-        details: Vector Search & Semantic Search, RAG, LangGraph/LangChain, LLM Streaming, OpenAI/Gemini APIs
-      - label: Frameworks
-        details: React, Node.js, Express, AngularJS, Aurelia, MongoDB
-      - label: Cloud / Infra
-        details: AWS (Step Functions, S3, CodePipeline), EC2/Nginx/PM2, Linux, Docker
+        details: Vector/Semantic Search, RAG, LangGraph/LangChain, LLM Streaming, OpenAI/Gemini APIs
+      - label: Frontend
+        details: React, AngularJS, Aurelia
+      - label: Backend
+        details: Node.js, Express
+      - label: Cloud & DevOps
+        details: AWS (EC2, S3, Step Functions, CodePipeline), Docker, Nginx, PM2, Linux
       - label: Databases & Search
         details: Redis, MongoDB, SQL Server, Elasticsearch
 

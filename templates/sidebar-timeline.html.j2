@@ -94,6 +94,22 @@
   .timeline-location { font-size: 8.8pt; color: #999; margin-bottom: 5px; }
   .timeline-item ul { margin: 4px 0 0 0; padding-left: 16px; color: #333; }
   .timeline-item li { margin-bottom: 3px; }
+  .timeline-position { margin-top: 8px; margin-left: 18px; break-inside: avoid; }
+  .timeline-position:first-of-type { margin-top: 4px; }
+  .timeline-position + .timeline-position { border-top: 1px dashed #ddd; padding-top: 8px; }
+  .timeline-position-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; }
+  .timeline-position-title { font-weight: 600; font-size: 9.8pt; color: #333; }
+  .timeline-position-dates { font-size: 8.5pt; color: #999; white-space: nowrap; }
+
+  @media screen {
+    html { background: #e9e9e9; }
+    body {
+      max-width: 1000px;
+      margin: 32px auto;
+      box-shadow: 0 0 14px rgba(0, 0, 0, 0.15);
+    }
+    .page { min-height: auto; }
+  }
 </style>
 </head>
 <body>
@@ -106,7 +122,7 @@
     {% if cv.location %}<div class="contact-item">{{ cv.location }}</div>{% endif %}
     {% if cv.email %}<div class="contact-item">{{ cv.email }}</div>{% endif %}
     {% if cv.website %}<div class="contact-item">{{ cv.website }}</div>{% endif %}
-    {% for net in cv.social_networks %}<div class="contact-item">{{ net.network }}: {{ net.username }}</div>{% endfor %}
+    {% for net in cv.social_networks %}<div class="contact-item"><strong>{{ net.network }}:</strong> {{ net.username }}</div>{% endfor %}
 
     {% if cv.sections.skills %}
     <h2>Skills</h2>
@@ -153,16 +169,38 @@
       <div class="timeline">
         {% for job in cv.sections.experience %}
         <div class="timeline-item">
+          {% if job.positions | length == 1 %}
+          {% set pos = job.positions[0] %}
           <div class="timeline-top">
-            <div class="timeline-title">{{ job.position }} <span class="timeline-company">— {{ job.company }}</span></div>
-            <div class="timeline-dates">{{ (job.start_date, job.end_date) | date_range }}</div>
+            <div class="timeline-title">{{ pos.position }} <span class="timeline-company">— {{ job.company }}</span></div>
+            <div class="timeline-dates">{{ (pos.start_date, pos.end_date) | date_range }}</div>
           </div>
           <div class="timeline-location">{{ job.location }}</div>
           <ul>
-            {% for h in job.highlights %}
+            {% for h in pos.highlights %}
             <li>{{ h | md_bold | safe }}</li>
             {% endfor %}
           </ul>
+          {% else %}
+          <div class="timeline-top">
+            <div class="timeline-title">{{ job.company }}</div>
+            <div class="timeline-dates">{{ (job.positions[-1].start_date, job.positions[0].end_date) | date_range }}</div>
+          </div>
+          <div class="timeline-location">{{ job.location }}</div>
+          {% for pos in job.positions %}
+          <div class="timeline-position">
+            <div class="timeline-position-top">
+              <div class="timeline-position-title">{{ pos.position }}</div>
+              <div class="timeline-position-dates">{{ (pos.start_date, pos.end_date) | date_range }}</div>
+            </div>
+            <ul>
+              {% for h in pos.highlights %}
+              <li>{{ h | md_bold | safe }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+          {% endif %}
         </div>
         {% endfor %}
       </div>

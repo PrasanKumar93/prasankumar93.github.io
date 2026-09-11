@@ -10,30 +10,48 @@
     font-family: Arial, Helvetica, sans-serif;
     color: #000;
     font-size: 11pt;
-    line-height: 1.45;
+    line-height: 1.55;
     margin: 0;
     padding: 24px 32px;
     max-width: 800px;
   }
-  h1 { font-size: 20pt; margin: 0 0 4px 0; }
-  .headline { font-size: 12pt; margin: 0 0 8px 0; }
-  .contact { font-size: 10pt; margin: 0 0 16px 0; }
-  .contact span:not(:last-child)::after { content: " | "; }
+  h1 { font-size: 21pt; margin: 0 0 4px 0; }
+  .headline { font-size: 12pt; color: #333; margin: 0 0 8px 0; }
+  .contact { font-size: 10pt; color: #333; margin: 0 0 16px 0; }
+  .contact span:not(:last-child)::after { content: " | "; color: #999; }
   h2 {
     font-size: 12pt;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
     border-bottom: 1px solid #000;
-    padding-bottom: 2px;
-    margin: 18px 0 8px 0;
+    padding-bottom: 3px;
+    margin: 28px 0 12px 0;
   }
-  .entry { margin-bottom: 10px; break-inside: avoid; }
-  .entry-header { font-weight: bold; }
-  .entry-sub { font-size: 10.5pt; margin-bottom: 2px; }
+  h2:first-of-type { margin-top: 20px; }
+  .entry { margin-bottom: 14px; break-inside: avoid; }
+  .entry + .entry { border-top: 1px dotted #aaa; padding-top: 12px; }
+  .entry-header { font-weight: bold; font-size: 11.5pt; }
+  .entry-sub { font-size: 10.5pt; color: #555; margin-bottom: 4px; }
+  .position-block { margin-top: 10px; margin-left: 18px; break-inside: avoid; }
+  .position-block:first-of-type { margin-top: 4px; }
+  .position-block + .position-block { border-top: 1px solid #e2e2e2; padding-top: 8px; }
+  .position-header { font-weight: bold; font-size: 11pt; }
+  .position-sub { font-size: 10pt; color: #777; margin-bottom: 4px; }
+  .entry-header-dates { font-weight: normal; font-size: 10pt; color: #666; }
   ul { margin: 4px 0 0 0; padding-left: 18px; }
-  li { margin-bottom: 3px; }
+  li { margin-bottom: 4px; }
   p { margin: 0 0 8px 0; }
-  .skills-row { margin-bottom: 4px; }
+  .skills-row { margin-bottom: 5px; }
   .skills-label { font-weight: bold; }
+
+  @media screen {
+    html { background: #e9e9e9; }
+    body {
+      margin: 32px auto;
+      background: #fff;
+      box-shadow: 0 0 14px rgba(0, 0, 0, 0.15);
+    }
+  }
 </style>
 </head>
 <body>
@@ -43,7 +61,7 @@
     {% if cv.location %}<span>{{ cv.location }}</span>{% endif %}
     {% if cv.email %}<span>{{ cv.email }}</span>{% endif %}
     {% if cv.website %}<span>{{ cv.website }}</span>{% endif %}
-    {% for net in cv.social_networks %}<span>{{ net.network }}: {{ net.username }}</span>{% endfor %}
+    {% for net in cv.social_networks %}<span><strong>{{ net.network }}:</strong> {{ net.username }}</span>{% endfor %}
   </div>
 
   {% if cv.sections.summary %}
@@ -57,13 +75,30 @@
   <h2>Experience</h2>
   {% for job in cv.sections.experience %}
   <div class="entry">
-    <div class="entry-header">{{ job.position }}, {{ job.company }}</div>
-    <div class="entry-sub">{{ job.location }} &nbsp;|&nbsp; {{ (job.start_date, job.end_date) | date_range }}</div>
+    {% if job.positions | length == 1 %}
+    {% set pos = job.positions[0] %}
+    <div class="entry-header">{{ pos.position }}, {{ job.company }}</div>
+    <div class="entry-sub">{{ job.location }} &nbsp;|&nbsp; {{ (pos.start_date, pos.end_date) | date_range }}</div>
     <ul>
-      {% for h in job.highlights %}
+      {% for h in pos.highlights %}
       <li>{{ h | md_bold | safe }}</li>
       {% endfor %}
     </ul>
+    {% else %}
+    <div class="entry-header">{{ job.company }} <span class="entry-header-dates">({{ (job.positions[-1].start_date, job.positions[0].end_date) | date_range }})</span></div>
+    <div class="entry-sub">{{ job.location }}</div>
+    {% for pos in job.positions %}
+    <div class="position-block">
+      <div class="position-header">{{ pos.position }}</div>
+      <div class="position-sub">{{ (pos.start_date, pos.end_date) | date_range }}</div>
+      <ul>
+        {% for h in pos.highlights %}
+        <li>{{ h | md_bold | safe }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+    {% endif %}
   </div>
   {% endfor %}
   {% endif %}
