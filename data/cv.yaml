@@ -75,9 +75,6 @@ cv:
                 Insurance) and ADB (Asian Development Bank) projects — led API
                 orchestration with AWS Step Functions, designed MongoDB schemas,
                 and set team-wide coding standards and test-coverage practices.
-              - Built **LEAP**, a unified ABSLI insurance-purchase journey
-                replacing fragmented, channel-specific flows across HDFC, other
-                bank partners, Paisabazaar, and direct-to-consumer channels.
               - Owned engineering documentation (Docusaurus) and production
                 Linux infrastructure (EC2, Nginx, Node.js/PM2, MongoDB).
 

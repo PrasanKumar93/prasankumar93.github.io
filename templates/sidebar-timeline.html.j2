@@ -7,7 +7,7 @@
 <meta name="description" content="{{ cv.headline }}">
 <link rel="canonical" href="{{ site_url }}/">
 <style>
-  @page { size: A4; margin: 10mm 0; }
+  @page { size: A4; margin: 0; }
   * { box-sizing: border-box; }
   html, body {
     margin: 0;
@@ -25,14 +25,14 @@
     width: 32%;
     background: #e8edf2;
     color: #34495e;
-    padding: 34px 24px;
+    padding: calc(34px + 10mm) 24px;
     border-right: 1px solid #c9d3dc;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
   }
   .main {
     width: 68%;
-    padding: 34px 30px;
+    padding: calc(34px + 10mm) 30px;
     background: #fff;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
