@@ -77,6 +77,7 @@
     border-left: 3px solid #b8916d;
     padding-left: 14px;
   }
+  .entry.no-border { border-left: none; }
   .entry-top {
     display: flex;
     justify-content: space-between;
@@ -223,7 +224,7 @@
   <section class="block">
   <h2>Education</h2>
   {% for ed in cv.sections.education %}
-  <div class="entry">
+  <div class="entry no-border">
     <div class="entry-top">
       <div class="entry-title">{{ ed.institution }}</div>
       <div class="entry-dates">{{ (ed.start_date, ed.end_date) | date_range }}</div>

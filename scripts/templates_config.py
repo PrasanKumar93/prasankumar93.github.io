@@ -27,8 +27,8 @@ TEMPLATES = [
     {
         "id": "modern-minimal",
         "file": "modern-minimal.html.j2",
-        "title": "Modern Minimal",
-        "short": "Modern",
+        "title": "Basic Minimal",
+        "short": "Basic",
         "url": "modern-minimal/",
         "desc": "Clean single-column design with refined typography, generous whitespace, and subtle dividers.",
     },
