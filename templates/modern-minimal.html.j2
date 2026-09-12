@@ -65,23 +65,24 @@
     padding-bottom: 4px;
     margin: 0 0 14px 0;
   }
-  .block { padding: 16px 0; break-inside: avoid; }
+  .block { padding: 16px 0; }
   .block:first-of-type { padding-top: 0; }
   .summary { color: #333; margin: 0; }
   li::marker { color: #b8916d; }
   .entry {
     margin-bottom: 16px;
-    break-inside: avoid;
     display: flex;
     flex-direction: column;
     border-left: 3px solid #b8916d;
     padding-left: 14px;
   }
+  .entry.entry-single { break-inside: avoid; }
   .entry.no-border { border-left: none; }
   .entry-top {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    break-after: avoid;
   }
   .entry-title {
     font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -105,6 +106,7 @@
     font-size: 9.5pt;
     color: #999;
     margin-bottom: 6px;
+    break-after: avoid;
   }
   ul { margin: 0; padding-left: 18px; color: #333; }
   li { margin-bottom: 4px; }
@@ -115,6 +117,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    break-after: avoid;
   }
   .position-title {
     font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -224,7 +227,7 @@
   <section class="block">
   <h2>Education</h2>
   {% for ed in cv.sections.education %}
-  <div class="entry no-border">
+  <div class="entry entry-single no-border">
     <div class="entry-top">
       <div class="entry-title">{{ ed.institution }}</div>
       <div class="entry-dates">{{ (ed.start_date, ed.end_date) | date_range }}</div>
