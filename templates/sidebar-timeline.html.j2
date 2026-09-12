@@ -20,54 +20,62 @@
   }
   .sidebar {
     width: 32%;
-    background: #1c1c1c;
-    color: #e8e8e8;
+    background: #e8edf2;
+    color: #34495e;
     padding: 34px 24px;
+    border-right: 1px solid #c9d3dc;
   }
   .main {
     width: 68%;
     padding: 34px 30px;
+    background: #fff;
   }
   .sidebar h1 {
     font-size: 19pt;
     font-weight: 600;
-    margin: 0 0 4px 0;
-    color: #fff;
+    margin: 0;
+    color: #1f2f3f;
+  }
+  .sidebar .name-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 0 0 4px 0; }
+  .sidebar .name-location {
+    font-size: 9.5pt;
+    font-weight: 400;
+    color: #6b7c8a;
   }
   .sidebar .headline {
     font-size: 9.5pt;
-    color: #b5b5b5;
+    color: #51606d;
     margin-bottom: 20px;
   }
   .sidebar h2 {
     font-size: 9pt;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: #999;
-    border-bottom: 1px solid #444;
+    color: #2c3e50;
+    border-bottom: 1px solid #b7c4cf;
     padding-bottom: 4px;
     margin: 22px 0 10px 0;
   }
   .sidebar h2:first-of-type { margin-top: 0; }
   .contact-item {
     font-size: 9pt;
-    color: #ddd;
+    color: #34495e;
     margin-bottom: 6px;
     word-break: break-word;
   }
   .sidebar-entry { margin-bottom: 10px; }
-  .sidebar-entry .label { font-size: 9pt; font-weight: 600; color: #fff; }
-  .sidebar-entry .value { font-size: 9pt; color: #ccc; }
-  .sidebar-edu-inst { font-size: 9.5pt; font-weight: 600; color: #fff; }
-  .sidebar-edu-meta { font-size: 8.8pt; color: #bbb; margin-top: 2px; }
-  .sidebar-award { font-size: 8.8pt; color: #ccc; margin-bottom: 8px; }
+  .sidebar-entry .label { font-size: 9pt; font-weight: 600; color: #1f2f3f; }
+  .sidebar-entry .value { font-size: 9pt; color: #46586a; }
+  .sidebar-edu-inst { font-size: 9.5pt; font-weight: 600; color: #1f2f3f; }
+  .sidebar-edu-meta { font-size: 8.8pt; color: #5b6b78; margin-top: 2px; }
+  .sidebar-award { font-size: 8.8pt; color: #34495e; margin-bottom: 8px; }
 
   .main h2 {
     font-size: 11pt;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: #1a1a1a;
-    border-bottom: 2px solid #1c1c1c;
+    color: #1f2f3f;
+    border-bottom: 2px solid #2c3e50;
     padding-bottom: 4px;
     margin: 0 0 12px 0;
   }
@@ -85,7 +93,7 @@
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: #1c1c1c;
+    background: #2c3e50;
   }
   .timeline-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; }
   .timeline-title { font-weight: 600; font-size: 10.5pt; color: #111; }
@@ -115,11 +123,13 @@
 <body>
 <div class="page">
   <aside class="sidebar">
-    <h1>{{ cv.name }}</h1>
+    <div class="name-row">
+      <h1>{{ cv.name }}</h1>
+      {% if cv.location %}<span class="name-location">{{ cv.location }}</span>{% endif %}
+    </div>
     {% if cv.headline %}<div class="headline">{{ cv.headline }}</div>{% endif %}
 
     <h2>Contact</h2>
-    {% if cv.location %}<div class="contact-item">{{ cv.location }}</div>{% endif %}
     {% if cv.email %}<div class="contact-item">{{ cv.email }}</div>{% endif %}
     {% if cv.website %}<div class="contact-item">{{ cv.website }}</div>{% endif %}
     {% for net in cv.social_networks %}<div class="contact-item"><strong>{{ net.network }}:</strong> {{ net.username }}</div>{% endfor %}

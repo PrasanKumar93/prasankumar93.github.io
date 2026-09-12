@@ -15,7 +15,9 @@
     padding: 24px 32px;
     max-width: 800px;
   }
-  h1 { font-size: 21pt; margin: 0 0 4px 0; }
+  h1 { font-size: 21pt; margin: 0; }
+  .name-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 0 0 4px 0; }
+  .name-location { font-size: 11pt; color: #666; font-weight: normal; }
   .headline { font-size: 12pt; color: #333; margin: 0 0 8px 0; }
   .contact { font-size: 10pt; color: #333; margin: 0 0 16px 0; }
   .contact span:not(:last-child)::after { content: " | "; color: #999; }
@@ -55,10 +57,12 @@
 </style>
 </head>
 <body>
-  <h1>{{ cv.name }}</h1>
+  <div class="name-row">
+    <h1>{{ cv.name }}</h1>
+    {% if cv.location %}<span class="name-location">{{ cv.location }}</span>{% endif %}
+  </div>
   {% if cv.headline %}<div class="headline">{{ cv.headline }}</div>{% endif %}
   <div class="contact">
-    {% if cv.location %}<span>{{ cv.location }}</span>{% endif %}
     {% if cv.email %}<span>{{ cv.email }}</span>{% endif %}
     {% if cv.website %}<span>{{ cv.website }}</span>{% endif %}
     {% for net in cv.social_networks %}<span><strong>{{ net.network }}:</strong> {{ net.username }}</span>{% endfor %}

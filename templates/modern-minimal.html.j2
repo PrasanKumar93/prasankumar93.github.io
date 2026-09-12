@@ -21,8 +21,15 @@
     font-weight: 300;
     font-size: 30pt;
     letter-spacing: 0.5px;
-    margin: 0 0 6px 0;
+    margin: 0;
     color: #111;
+  }
+  .name-row { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin: 0 0 6px 0; }
+  .name-location {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12pt;
+    font-weight: 400;
+    color: #888;
   }
   .headline {
     font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -36,7 +43,7 @@
     color: #666;
     letter-spacing: 0.3px;
   }
-  .contact span { margin-right: 14px; }
+  .contact span { margin-right: 14px; white-space: nowrap; }
   hr.divider {
     border: none;
     border-top: 1px solid #ddd;
@@ -48,11 +55,22 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #888;
-    margin: 26px 0 12px 0;
+    color: #8a5a3b;
+    display: inline-block;
+    border-bottom: 2px solid #b8916d;
+    padding-bottom: 4px;
+    margin: 0 0 14px 0;
   }
-  h2:first-of-type { margin-top: 0; }
+  .block { padding: 16px 0; break-inside: avoid; }
+  .block:first-of-type { padding-top: 0; }
+  .block:nth-of-type(even) {
+    background: #f8f5f1;
+    border-radius: 10px;
+    margin: 0 -20px;
+    padding: 16px 20px;
+  }
   .summary { color: #333; margin: 0; }
+  li::marker { color: #b8916d; }
   .entry {
     margin-bottom: 16px;
     break-inside: avoid;
@@ -136,25 +154,30 @@
 </head>
 <body>
   <header>
-    <h1>{{ cv.name }}</h1>
+    <div class="name-row">
+      <h1>{{ cv.name }}</h1>
+      {% if cv.location %}<span class="name-location">{{ cv.location }}</span>{% endif %}
+    </div>
     {% if cv.headline %}<div class="headline">{{ cv.headline }}</div>{% endif %}
     <div class="contact">
-      {% if cv.location %}<span>{{ cv.location }}</span>{% endif %}
       {% if cv.email %}<span>{{ cv.email }}</span>{% endif %}
       {% if cv.website %}<span>{{ cv.website }}</span>{% endif %}
-      {% for net in cv.social_networks %}<span><strong>{{ net.network }}</strong>/{{ net.username }}</span>{% endfor %}
+      {% for net in cv.social_networks %}<span><strong>{{ net.network }}:</strong> {{ net.username }}</span>{% endfor %}
     </div>
   </header>
   <hr class="divider">
 
   {% if cv.sections.summary %}
-  <h2>Summary</h2>
-  {% for para in cv.sections.summary %}
-  <p class="summary">{{ para | md_bold | safe }}</p>
-  {% endfor %}
+  <section class="block">
+    <h2>Summary</h2>
+    {% for para in cv.sections.summary %}
+    <p class="summary">{{ para | md_bold | safe }}</p>
+    {% endfor %}
+  </section>
   {% endif %}
 
   {% if cv.sections.experience %}
+  <section class="block">
   <h2>Experience</h2>
   {% for job in cv.sections.experience %}
   <div class="entry">
@@ -192,9 +215,11 @@
     {% endif %}
   </div>
   {% endfor %}
+  </section>
   {% endif %}
 
   {% if cv.sections.education %}
+  <section class="block">
   <h2>Education</h2>
   {% for ed in cv.sections.education %}
   <div class="entry">
@@ -205,9 +230,11 @@
     <div class="entry-location">{{ ed.degree }}, {{ ed.area }} — {{ ed.location }}</div>
   </div>
   {% endfor %}
+  </section>
   {% endif %}
 
   {% if cv.sections.skills %}
+  <section class="block">
   <h2>Skills</h2>
   <div class="skills">
     {% for s in cv.sections.skills %}
@@ -217,15 +244,18 @@
     </div>
     {% endfor %}
   </div>
+  </section>
   {% endif %}
 
   {% if cv.sections.awards %}
+  <section class="block">
   <h2>Awards</h2>
   <ul class="awards-list">
     {% for a in cv.sections.awards %}
     <li>{{ a.bullet | md_bold | safe }}</li>
     {% endfor %}
   </ul>
+  </section>
   {% endif %}
 </body>
 </html>
