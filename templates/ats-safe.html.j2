@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ cv.name }} - Resume</title>
+<meta name="description" content="{{ cv.headline }}">
+<link rel="canonical" href="{{ site_url }}/">
 <style>
   @page { size: A4; margin: 16mm 18mm; }
   * { box-sizing: border-box; }
@@ -57,6 +60,9 @@
 </style>
 </head>
 <body>
+  {% set dock_offset = '524px' %}
+  {% set dock_breakpoint = '1150px' %}
+  {% include "_switcher.html.j2" %}
   <div class="name-row">
     <h1>{{ cv.name }}</h1>
     {% if cv.location %}<span class="name-location">{{ cv.location }}</span>{% endif %}

@@ -23,6 +23,12 @@ DATA_PATH = ROOT / "data" / "cv.yaml"
 TEMPLATES_DIR = ROOT / "templates"
 DIST_DIR = ROOT / "dist"
 
+# Canonical domain for <link rel="canonical">. Every rendered page (all three
+# template variants) points its canonical at the site root — see the note in
+# templates_config.py: ats-safe is the default landing design, so the root
+# gets a full duplicate of the ats-safe render rather than a template picker.
+SITE_URL = "https://prasankumar93.github.io"
+
 MONTH_NAMES = [
     "", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
@@ -87,16 +93,23 @@ def render_all():
 
     for tpl in TEMPLATES:
         template = env.get_template(tpl["file"])
+        html = template.render(
+            cv=cv, templates=TEMPLATES, current_id=tpl["id"], site_url=SITE_URL
+        )
         out_dir = DIST_DIR / tpl["id"]
         out_dir.mkdir(parents=True, exist_ok=True)
-        (out_dir / "index.html").write_text(template.render(cv=cv), encoding="utf-8")
+        (out_dir / "index.html").write_text(html, encoding="utf-8")
         print(f"Rendered {tpl['id']} -> {out_dir / 'index.html'}")
 
-    picker = env.get_template("picker.html.j2")
-    (DIST_DIR / "index.html").write_text(
-        picker.render(cv=cv, templates=TEMPLATES), encoding="utf-8"
-    )
-    print(f"Rendered picker -> {DIST_DIR / 'index.html'}")
+        # ats-safe is the default landing design (see templates_config.py),
+        # so the same render also becomes the site root — no separate
+        # picker page. dist/ats-safe/index.html is kept too (identical
+        # content) purely so export_pdfs.py has a per-template path to print
+        # from; its canonical tag points back at "/" so search engines treat
+        # the root as the one page to index, not a duplicate.
+        if tpl["id"] == "ats-safe":
+            (DIST_DIR / "index.html").write_text(html, encoding="utf-8")
+            print(f"Rendered ats-safe -> {DIST_DIR / 'index.html'} (site root)")
 
 
 if __name__ == "__main__":
