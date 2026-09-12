@@ -132,16 +132,16 @@
     white-space: nowrap;
     padding-left: 12px;
   }
-  .skills { display: flex; flex-direction: column; gap: 5px; }
-  .skills-row {
-    display: flex;
-  }
+  .skills-table { width: 100%; border-collapse: collapse; border: 1px solid #b8916d; }
+  .skills-table tr { break-inside: avoid; }
+  .skills-table tr:nth-child(even) { background: #f7f1ec; }
+  .skills-table td { padding: 8px 12px; vertical-align: top; border: 1px solid #ddd0c4; }
   .skills-label {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-weight: 600;
     color: #111;
     width: 150px;
-    flex-shrink: 0;
+    white-space: nowrap;
   }
   .skills-details { color: #444; }
   .awards-list { margin: 0; padding-left: 18px; color: #333; }
@@ -241,14 +241,14 @@
   {% if cv.sections.skills %}
   <section class="block">
   <h2>Skills</h2>
-  <div class="skills">
+  <table class="skills-table">
     {% for s in cv.sections.skills %}
-    <div class="skills-row">
-      <div class="skills-label">{{ s.label }}</div>
-      <div class="skills-details">{{ s.details }}</div>
-    </div>
+    <tr>
+      <td class="skills-label">{{ s.label }}</td>
+      <td class="skills-details">{{ s.details }}</td>
+    </tr>
     {% endfor %}
-  </div>
+  </table>
   </section>
   {% endif %}
 
