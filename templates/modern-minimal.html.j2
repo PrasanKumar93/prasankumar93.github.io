@@ -46,7 +46,8 @@
     color: #666;
     letter-spacing: 0.3px;
   }
-  .contact span { margin-right: 14px; white-space: nowrap; }
+  .contact span { white-space: nowrap; }
+  .contact span:not(:last-child)::after { content: " | "; color: #ccc; }
   hr.divider {
     border: none;
     border-top: 1px solid #ddd;
@@ -66,12 +67,6 @@
   }
   .block { padding: 16px 0; break-inside: avoid; }
   .block:first-of-type { padding-top: 0; }
-  .block:nth-of-type(even) {
-    background: #f8f5f1;
-    border-radius: 10px;
-    margin: 0 -20px;
-    padding: 16px 20px;
-  }
   .summary { color: #333; margin: 0; }
   li::marker { color: #b8916d; }
   .entry {
@@ -79,6 +74,8 @@
     break-inside: avoid;
     display: flex;
     flex-direction: column;
+    border-left: 3px solid #b8916d;
+    padding-left: 14px;
   }
   .entry-top {
     display: flex;
