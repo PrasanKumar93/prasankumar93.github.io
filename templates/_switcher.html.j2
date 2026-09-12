@@ -1,5 +1,13 @@
-{% set dock_offset = dock_offset|default('524px') %}
-{% set dock_breakpoint = dock_breakpoint|default('1150px') %}
+{# The dock's horizontal position is intentionally the SAME fixed value on
+   every template, not tuned per-template. It's set to sidebar-timeline's
+   numbers because that's the widest template (max-width: 1000px) — anchoring
+   to the widest one guarantees the dock never overlaps the narrower
+   templates' content (they have more empty gutter to spare), and it means
+   the dock sits in the exact same screen position when a visitor switches
+   between templates, instead of jumping sideways to hug each template's own
+   (differently sized) content column. #}
+{% set dock_offset = dock_offset|default('624px') %}
+{% set dock_breakpoint = dock_breakpoint|default('1300px') %}
 <style>
   .tpl-dock { display: none; }
   @media screen {
