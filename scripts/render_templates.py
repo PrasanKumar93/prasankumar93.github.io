@@ -10,6 +10,7 @@ Requires: jinja2, pyyaml (both already used by this repo's tooling).
 """
 import html as html_lib
 import re
+from datetime import date
 from pathlib import Path
 
 import yaml
@@ -90,25 +91,46 @@ def render_all():
     cv = load_cv()
     env = build_env()
     DIST_DIR.mkdir(parents=True, exist_ok=True)
+    build_date = date.today().strftime("%Y-%m-%d")
 
     for tpl in TEMPLATES:
         template = env.get_template(tpl["file"])
-        html = template.render(
-            cv=cv, templates=TEMPLATES, current_id=tpl["id"], site_url=SITE_URL
-        )
         out_dir = DIST_DIR / tpl["id"]
         out_dir.mkdir(parents=True, exist_ok=True)
-        (out_dir / "index.html").write_text(html, encoding="utf-8")
+
+        # Per-template pages live one level below dist/ (dist/<id>/index.html),
+        # so their relative links need "../" to reach the site root and any
+        # sibling template. See templates_config.py for the root_prefix scheme.
+        nested_html = template.render(
+            cv=cv,
+            templates=TEMPLATES,
+            current_id=tpl["id"],
+            site_url=SITE_URL,
+            root_prefix="../",
+            build_date=build_date,
+        )
+        (out_dir / "index.html").write_text(nested_html, encoding="utf-8")
         print(f"Rendered {tpl['id']} -> {out_dir / 'index.html'}")
 
         # ats-safe is the default landing design (see templates_config.py),
-        # so the same render also becomes the site root — no separate
-        # picker page. dist/ats-safe/index.html is kept too (identical
-        # content) purely so export_pdfs.py has a per-template path to print
-        # from; its canonical tag points back at "/" so search engines treat
-        # the root as the one page to index, not a duplicate.
+        # so it's also rendered a second time as the site root — no separate
+        # picker page. This has to be a separate render (not a reused copy of
+        # nested_html) because dist/index.html sits one level shallower than
+        # dist/ats-safe/index.html, so its relative links need root_prefix
+        # "./" instead of "../". dist/ats-safe/index.html is still kept too,
+        # purely so export_pdfs.py has a per-template path to print from; its
+        # canonical tag points back at "/" so search engines treat the root
+        # as the one page to index, not a duplicate.
         if tpl["id"] == "ats-safe":
-            (DIST_DIR / "index.html").write_text(html, encoding="utf-8")
+            root_html = template.render(
+                cv=cv,
+                templates=TEMPLATES,
+                current_id=tpl["id"],
+                site_url=SITE_URL,
+                root_prefix="./",
+                build_date=build_date,
+            )
+            (DIST_DIR / "index.html").write_text(root_html, encoding="utf-8")
             print(f"Rendered ats-safe -> {DIST_DIR / 'index.html'} (site root)")
 
 
